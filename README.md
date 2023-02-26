@@ -1,8 +1,7 @@
-[![Gem Version](https://badge.fury.io/rb/github_changelog_generator.svg)](http://badge.fury.io/rb/github_changelog_generator)
-[![CircleCI](https://circleci.com/gh/github-changelog-generator/github-changelog-generator.svg?style=svg)](https://circleci.com/gh/github-changelog-generator/github-changelog-generator)
-[![Inline docs](http://inch-ci.org/github/github-changelog-generator/github-changelog-generator.svg)](http://inch-ci.org/github/github-changelog-generator/github-changelog-generator)
-[![Join the chat at https://gitter.im/github-changelog-generator/chat](https://badges.gitter.im/github-changelog-generator/chat.svg)](https://gitter.im/github-changelog-generator/chat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
+<p align="center">
+    <a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/badges/shields" /></a>
+</p>
 # Small tkinter GUI template
 
 A repo for having a good starting template for a tkinter gui
