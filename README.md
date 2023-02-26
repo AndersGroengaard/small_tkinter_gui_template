@@ -19,7 +19,7 @@ Play around with adding your own icons, your own splash screen etc.
 
 Main window:
 
-![Screenshot of the Splash screen](./doc/spalsh_screen.png)
+![Screenshot of the Splash screen](./doc/splash_screen.png)
 
 Main window:
 
