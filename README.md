@@ -21,7 +21,10 @@ Play around with adding your own icons, your own splash screen etc.
 
 Main window:
 
-![Screenshot of the Splash screen](./doc/splash_screen.png)
+
+
+<img src=./doc/splash_screen.png" width="48">
+
 
 Main window:
 
