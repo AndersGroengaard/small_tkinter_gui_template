@@ -23,7 +23,7 @@ Main window:
 
 
 
-<a href="url"><img src=./doc/splash_screen.png" width="48"></a>
+<a href="url"><img src="./doc/splash_screen.png" width="48"></a>
 
 
 Main window:
