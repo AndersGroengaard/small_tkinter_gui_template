@@ -1,11 +1,7 @@
 # ============================================================================= 
 # from tkinter import Tk, RIGHT, BOTH, RAISED, Text, TOP, BOTH, X, N, LEFT, W, E, S
-# import os
-# #import create_cad
-# import grundfos_library as gl
-# =============================================================================
-
-
+ 
+import grundfos_library as gl
 import tkinter as tk
 from tkinter import ttk, W, LEFT, RIGHT
 from PIL import ImageTk, Image
@@ -32,17 +28,20 @@ class SplashScreen(tk.Tk):
         self.display_time = kwargs.get("time", 4000)                           # Number of milliseconds the splash screen should be displayed
         
         self.overrideredirect(True)                                            # Removes the top bar where you can normall close and minimise etc...
-        width = self.winfo_screenwidth()                      
-        height = self.winfo_screenheight()
+        self.width = self.winfo_screenwidth()                             
+        self.height = self.winfo_screenheight()
                          
-        image = tk.PhotoImage(file=self.image_file_path)                       # Loading the splash image
-        x = int((width / 2) - (image.width() / 2))
-        y = int((height / 2) - (image.height() / 2))
-        geometry = '{}x{}+{}+{}'.format(image.width() - 5, image.height() - 5, x, y)
-        self.geometry(geometry)
-        canvas = tk.Canvas(self, width=image.width(), height=image.height())
-        canvas.pack()
-        canvas.create_image(0, 0, image=image, anchor='sw')
+        self.image = tk.PhotoImage(file=self.image_file_path)                  # Loading the splash image
+        self.x = int((self.width / 2) - (self.image.width() / 2))
+        self.y = int((self.height / 2) - (self.image.height() / 2))
+        self.image_geometry = '{}x{}+{}+{}'.format(self.image.width() - 5, 
+                                                   self.image.height() - 5, 
+                                                   self.x, self.y)
+        self.geometry(self.image_geometry)
+        self.canvas = tk.Canvas(self, width=self.image.width(), 
+                                      height=self.image.height())
+        self.canvas.pack()
+        self.canvas.create_image(0, 0, image=self.image, anchor='sw')
         self.after(self.display_time, self.destroy)                            # Destroy window after time as expired
        
 
@@ -61,60 +60,73 @@ class MainApplication(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
        
+        # Stuff to configure:
         self.title('DataFlow 2023 v.0.1')                                      # Specifying the title of the window
         self.iconbitmap('./imgs/icon.ico')                                     # Adding our own icon to the app
-        w = 760                                                                # width for the Tk root
-        h = 600                                                                # height for the Tk root      
-        ws = self.winfo_screenwidth()                                          # width of the screen
-        hs = self.winfo_screenheight()                                         # height of the screen
-        x = (ws / 2) - (w / 2)                                                 # calculate x starting coordinates... 
-        y = (hs / 2) - (h / 2)                                                 # ...and y starting coordinates for the Tk root window
-        self.geometry('%dx%d+%d+%d' % (w, h, x, y))                            # Specifying window dimensions.
-     
+        self.w = 760                                                           # width for the Tk root
+        self.h = 600                                                           # height for the Tk root   
         
+        # Calculating frame dimensions
+        self.ws = self.winfo_screenwidth()                                     # width of the screen
+        self.hs = self.winfo_screenheight()                                    # height of the screen
+        self.x = (self.ws / 2) - (self.w / 2)                                  # calculate x starting coordinates... 
+        self.y = (self.hs / 2) - (self.h / 2)                                  # ...and y starting coordinates for the Tk root window
+        self.geometry('%dx%d+%d+%d' % (self.w, self.h, self.x, self.y))        # Specifying window dimensions.
+        
+        self.configure_gui_style()                                             # Initiating our style configuration 
+        
+        self.create_widgets()
+        
+    def configure_gui_style(self):
+        self.style = ttk.Style(self)                                           # Create a style
+        self.tk.call('source', './azure_theme/azure.tcl')                      # Import the tcl file 
+        self.tk.call("set_theme", "light")                                     # Possible values for the azure tcl is either "light" or "dark"
+        self.style.configure('.', font=('AU Passata', 12, 'normal'))           # Configuring the normal font 
+        self.style.configure('TButton', background=gl.RGBtoHex(gl.Blue_1), 
+                             foreground='white', width=10, borderwidth=10,
+                             focusthickness=100, 
+                             focuscolor=gl.RGBtoHex(gl.Grundfos_lightblue), 
+                             font=('AU Passata', 10, 'bold'))
+        
+        
+    def create_widgets(self):
        # ======================================================================
        #  CREATE FRAMES
        # ======================================================================
     
-        CAD_config_frame = ttk.LabelFrame(self, text='Create Custom Product')
-        CAD_config_frame.grid(row=0, column=0, sticky=W, padx=5, pady=2)
+        self.main_frame = ttk.LabelFrame(self, text='Create Custom Product')
+        self.main_frame.grid(row=0, column=0, sticky=W, padx=5, pady=2)
       
-        descrip_frame = ttk.LabelFrame(CAD_config_frame, text='Description')
-        descrip_frame.grid(row=0, column=0, sticky=W, padx=5, pady=2, columnspan=4)
+        def create_description_subframe(self):
+      
+            self.descrip_frame = ttk.LabelFrame(self.main_frame, text='Description')
+            self.descrip_frame.grid(row=0, column=0, sticky=W, padx=5, pady=2, columnspan=4)
+           
+            
+            self.descript_text = tk.Label(self.descrip_frame, text="Input volume flow rate, Q, and Head height, H, " \
+                                                         "\nand create one ore more corresponding CAD-files "\
+                                                         "based on the scaling laws, " \
+                                                         "\nusing the UMS-20-20 centrifugal pump as a base\n" \
+                                                         "\n" \
+                                                         "Input a either a single value in Q and H or a \n" \
+                                                         "series of values to create multiple products, eg.\n" \
+                                                         "Q: 1, 2, 4 \n" \
+                                                         "H: 1.5, 2.5, 5\n" \
+                                                         "\n" \
+                                                         "Output CAD-files are saved in a folder with the format:\n" \
+                                                         "ProductType_Q_Q-value_H_H-value",
+                                   anchor='w', justify=LEFT, font=('AU Passata', 9, 'normal'))
+            self.descript_text.grid(row=0, column=0, sticky=W, padx=5, pady=10)
        
-        
-        descript_text = tk.Label(descrip_frame, text="Input volume flow rate, Q, and Head height, H, " \
-                                                     "\nand create one ore more corresponding CAD-files "\
-                                                     "based on the scaling laws, " \
-                                                     "\nusing the UMS-20-20 centrifugal pump as a base\n" \
-                                                     "\n" \
-                                                     "Input a either a single value in Q and H or a \n" \
-                                                     "series of values to create multiple products, eg.\n" \
-                                                     "Q: 1, 2, 4 \n" \
-                                                     "H: 1.5, 2.5, 5\n" \
-                                                     "\n" \
-                                                     "Output CAD-files are saved in a folder with the format:\n" \
-                                                     "ProductType_Q_Q-value_H_H-value",
-                               anchor='w', justify=LEFT, font=('AU Passata', 9, 'normal'))
-        descript_text.grid(row=0, column=0, sticky=W, padx=5, pady=10)
-       
+        self.create_description_subframe()
        # ======================================================================
        #  CREATE FRAMES
        # ======================================================================
        
-        product_label = ttk.Label(CAD_config_frame, text="Choose Product:", anchor='e', justify=RIGHT,
+        product_label = ttk.Label(self.main_frame, text="Choose Product:", anchor='e', justify=RIGHT,
                                  font=('AU Passata', 10, 'normal'))
-      
-# =============================================================================
-#         product_image = Image.open("./imgs/donut_cycles.png")
-#         
-#         scaling = self.prd_img_width / product_image.size[0]
-#         img = ImageTk.PhotoImage(product_image.resize((self.prd_img_width, 
-#                                                        int(product_image.size[1] * scaling)), 
-#                                                       Image.ANTIALIAS))
-# =============================================================================
-
-        self.panel = ttk.Label(CAD_config_frame)#, image=img)
+ 
+        self.panel = ttk.Label(self.main_frame)#, image=img)
         
         self.choice_img_dict = {"Product A":"./imgs/donut_cycles.png", 
                                 "Product B": "./imgs/glass_w_rain.png"}
@@ -122,58 +134,59 @@ class MainApplication(tk.Tk):
         self.prd_img_width = 300
         self.v = tk.StringVar()
         self.v.trace('w', self.on_field_change)
-        self.Product_range = ttk.Combobox(CAD_config_frame, textvar=self.v, values=list(self.choice_img_dict.keys()))
+        self.Product_range = ttk.Combobox(self.main_frame, textvar=self.v, values=list(self.choice_img_dict.keys()))
         self.Product_range.current(0)
         
 
-# =============================================================================
-#          
-#         
-#         Q_label = ttk.Label(CAD_config_frame, text="Flow (Q):", anchor='e', justify=RIGHT, font=('AU Passata', 10, 'bold'))
-#         Q_value = tk.StringVar()
-#         Q_entry = ttk.Entry(CAD_config_frame, textvariable=Q_value, width=30)
-#         Q_value.set('1')
-#         Q_unit = ttk.Label(CAD_config_frame, text="[m\u00b3/s]", anchor='w', justify=LEFT, font=('AU Passata', 10, 'normal'))
-#         H_label = ttk.Label(CAD_config_frame, text="Head (H):", anchor='e', justify=RIGHT, font=('AU Passata', 10, 'bold'))
-#         H_value = tk.StringVar()
-#         H_entry = ttk.Entry(CAD_config_frame, textvariable=H_value, width=30)
-#         H_value.set('1.5')
-#         H_unit = ttk.Label(CAD_config_frame, text="[m]", anchor='w', justify=LEFT, font=('AU Passata', 10, 'normal'))
-#          
-#       #  cwd = os.getcwd()
-#         destination_label = ttk.Label(CAD_config_frame, text="Destination:", anchor='e', justify=RIGHT,
-#                                        font=('AU Passata', 10, 'normal'))
-#         destination_value = tk.StringVar()
-#         destination_entry = ttk.Entry(CAD_config_frame, textvariable=destination_value, width=70)
-#       #  destination_value.set(cwd + "\\Instantiated_products\\")
-#          
-#         suc_mes = tk.StringVar()
-#         suc_mes.set(' ')
-#         success_message = tk.Label(CAD_config_frame, textvariable=suc_mes, anchor='w', justify=LEFT,
-#                                      font=('AU Passata', 10, 'normal'))
-# =============================================================================
+         
+        
+        Q_label = ttk.Label(self.main_frame, text="Flow (Q):", anchor='e', justify=RIGHT, font=('AU Passata', 10, 'bold'))
+        Q_value = tk.StringVar()
+        Q_entry = ttk.Entry(self.main_frame, textvariable=Q_value, width=30)
+        Q_value.set('1')
+        Q_unit = ttk.Label(self.main_frame, text="[m\u00b3/s]", anchor='w', justify=LEFT, font=('AU Passata', 10, 'normal'))
+        H_label = ttk.Label(self.main_frame, text="Head (H):", anchor='e', justify=RIGHT, font=('AU Passata', 10, 'bold'))
+        H_value = tk.StringVar()
+        H_entry = ttk.Entry(self.main_frame, textvariable=H_value, width=30)
+        H_value.set('1.5')
+        H_unit = ttk.Label(self.main_frame, text="[m]", anchor='w', justify=LEFT, font=('AU Passata', 10, 'normal'))
+         
+      #  cwd = os.getcwd()
+        destination_label = ttk.Label(self.main_frame, text="Destination:", anchor='e', justify=RIGHT,
+                                       font=('AU Passata', 10, 'normal'))
+        destination_value = tk.StringVar()
+        destination_entry = ttk.Entry(self.main_frame, textvariable=destination_value, width=70)
+      #  destination_value.set(cwd + "\\Instantiated_products\\")
+         
+        main_button = ttk.Button(self.main_frame, text="Create stuff!", width=50, command=self.button_action)
+        
+        suc_mes = tk.StringVar()
+        suc_mes.set(' ')
+        success_message = tk.Label(self.main_frame, textvariable=suc_mes, anchor='w', justify=LEFT,
+                                     font=('AU Passata', 10, 'normal'))
         # 
  
         self.panel.grid(row=0, column=4, sticky=W, padx=0, pady=0, rowspan=1)
         product_label.grid(row=1, column=0, sticky=W, padx=5, pady=5)
         self.Product_range.grid(row=1, column=1, sticky=W, padx=5, pady=30, columnspan=2)
-# =============================================================================
-#         Q_label.grid(row=2, column=0, sticky=W, padx=5, pady=5)
-#         Q_entry.grid(row=2, column=1, sticky=W, padx=5, pady=5)
-#         Q_unit.grid(row=2, column=2, sticky=W, padx=5, pady=5)
-#         H_label.grid(row=3, column=0, sticky=W, padx=5, pady=5)
-#         H_entry.grid(row=3, column=1, sticky=W, padx=5, pady=5)
-#         H_unit.grid(row=3, column=2, sticky=W, padx=5, pady=5)
-#         destination_label.grid(row=4, column=0, sticky=W, padx=3, pady=25, columnspan=4)
-#         destination_entry.grid(row=4, column=1, sticky=W, padx=3, pady=25, columnspan=4)
-# =============================================================================
-        create_CAD = ttk.Button(CAD_config_frame, text="Create CAD-files", width=50, command=self.button_action)
-        create_CAD.grid(row=5, column=0, sticky=W, padx=5, pady=25, columnspan=4)
+        Q_label.grid(row=2, column=0, sticky=W, padx=5, pady=5)
+        Q_entry.grid(row=2, column=1, sticky=W, padx=5, pady=5)
+        Q_unit.grid(row=2, column=2, sticky=W, padx=5, pady=5)
+        H_label.grid(row=3, column=0, sticky=W, padx=5, pady=5)
+        H_entry.grid(row=3, column=1, sticky=W, padx=5, pady=5)
+        H_unit.grid(row=3, column=2, sticky=W, padx=5, pady=5)
+        destination_label.grid(row=4, column=0, sticky=W, padx=3, pady=25, columnspan=4)
+        destination_entry.grid(row=4, column=1, sticky=W, padx=3, pady=25, columnspan=4)
+   
+        main_button.grid(row=5, column=0, sticky=W, padx=5, pady=25, columnspan=4)
+        
         
     def on_field_change(self, index, value, op):
         """
-        Method for changing the displayed image for when the user changes
-        the value in the drop down list.
+        -----------------------------------------------------------------------
+        | Method for changing the displayed image for when the user changes   |
+        | the value in the drop down list.                                    |
+        -----------------------------------------------------------------------
         """
         print("Field change -> Changing image")
         
