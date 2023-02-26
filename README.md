@@ -19,14 +19,17 @@ Use this repo as starting foundation for building your own app.
 
 
 
-Main window:
+Splash Screen:
 
 
 
 <img src="./doc/splash_screen.png" width="400">
 
 
+
+
 Main window:
+
 <img src="./doc/main_window.png" width="400">
 
 
