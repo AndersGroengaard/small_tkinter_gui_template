@@ -16,7 +16,7 @@ Use this repo as starting foundation for building your own app.
 ## How to use
  * Clone the repo or download it
  * Play around with adding your own icons, your own splash screen, change the widgets etc. 
-
+ * Use Pyinstaller when you are done, to create an exe file that everyone who does not have python installed can run and share it with your colleagues or co-students :-) 
 
 
 Splash Screen:
