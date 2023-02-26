@@ -1,5 +1,19 @@
-# ============================================================================= 
-# from tkinter import Tk, RIGHT, BOTH, RAISED, Text, TOP, BOTH, X, N, LEFT, W, E, S
+"""
+===============================================================================
+|| TKINTER TEMPLATE PROJECT 2023                                             ||
+===============================================================================
+||
+||                                                             ,.,,,*     
+||    DONUTMAKER 9000                                     ,,,,,,,,,...,,,*  
+||                                                    .,,,,(,,,,,,/,,,,,,* 
+||                                                   ..,,,,*///# ,.,.,,,** 
+||                                                  ..,,,*,****,,....,,*** 
+||                                                  ,,,*,,,,,.....,,*,,*/  
+||    Made in Python 3.9                            .,,,,.,,,.,,,,.,,*/*   
+||                                                    ,,,,,,,,,,,***/      
+||                                                         *               
+===============================================================================
+""" 
  
 import grundfos_library as gl
 import tkinter as tk
@@ -10,12 +24,10 @@ from PIL import ImageTk, Image
 # =============================================================================
 #  CUSTOM INPUT
 # =============================================================================
-
-
+ 
 version = "1.1.12-a"
 appname = "DonutMaker 9000"
- 
-
+  
 
 # =============================================================================
 #  Splash Screen
@@ -265,6 +277,7 @@ class MainApplication(tk.Tk):
             # < Method for button execution here >
             self.suc_mes.set('Operation succeeded!')
             self.success_message.config(fg='green')
+            
         except Exception as e:    
             self.suc_mes.set(e)
             self.success_message.config(fg='red')

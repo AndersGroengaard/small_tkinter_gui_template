@@ -8,3 +8,7 @@ For the widget themes i kindly used the Azure theme found here: https://github.c
 Main window:
 
 ![Screenshot of the Main Window theme](./doc/main_window.png)
+
+
+## Bugs
+ - no 
