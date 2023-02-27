@@ -1,3 +1,7 @@
+
+
+# Small tkinter GUI template
+
 <p align="center">
 [![Generic badge](https://img.shields.io/badge/Python-3.8-blue)]()
 [![Generic badge](https://img.shields.io/badge/version-dev-green)]()
@@ -5,10 +9,10 @@
 </p>
 
 
+_A repo for having a good starting template for a tkinter gui in python._
 
-# Small tkinter GUI template
+---
 
-A repo for having a good starting template for a tkinter gui in python.
 
 For the widget themes i kindly used the Azure theme found here: https://github.com/rdbende/Azure-ttk-theme
 
