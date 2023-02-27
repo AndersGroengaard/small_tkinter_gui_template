@@ -1,7 +1,6 @@
 <p align="center">
-        [![Generic badge]( https://img.shields.io/badge/Python-3.8-blue.svg )]()
-        [![Generic badge]( https://img.shields.io/badge/version-dev-green.svg )]()
- 
+[![Generic badge]( https://img.shields.io/badge/Python-3.8-blue.svg )]()
+[![Generic badge]( https://img.shields.io/badge/version-dev-green.svg )]()
 </p>
 
 
