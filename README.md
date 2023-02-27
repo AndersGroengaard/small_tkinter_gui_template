@@ -1,6 +1,7 @@
 <p align="center">
         <img src=["https://img.shields.io/github/contributors/badges/shields](https://img.shields.io/badge/Python-3.9-blue)" /></a>
-         [![General badge](https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg)](https://shields.io/)
+         [![General badge](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://shields.io/)
+ 
 </p>
 
 
