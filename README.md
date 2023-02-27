@@ -1,6 +1,6 @@
 <p align="center">
         <img src=["https://img.shields.io/github/contributors/badges/shields](https://img.shields.io/badge/Python-3.9-blue)" /></a>
-        (https://img.shields.io/badge/version-v0.39.3-yellow.svg)][4] [![CII Best Practices]
+         [![nvm version](https://img.shields.io/badge/version-v0.39.3-yellow.svg)]
 </p>
 
 
