@@ -4,12 +4,9 @@
 
 <p align="center">
  
-     <a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors">
-        <img src="https://img.shields.io/github/contributors/badges/shields" /></a>
  
 [![Generic badge](https://img.shields.io/badge/Python-3.8-blue)]()
-[![Generic badge](https://img.shields.io/badge/version-dev-green)]()
- [![Generic badge](https://img.shields.io/badge/Team-PVZ-blue.svg)]()
+[![Generic badge](https://img.shields.io/badge/version-1.0.0-green)]()
 </p>
 
 
