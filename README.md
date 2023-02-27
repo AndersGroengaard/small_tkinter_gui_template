@@ -5,7 +5,7 @@
 <p align="center">
  
  
-[![Generic badge](https://img.shields.io/badge/Python-3.8-blue)]()
+[![Generic badge](https://img.shields.io/badge/Python-3.9-blue)]()
 [![Generic badge](https://img.shields.io/badge/version-1.0.0-green)]()
 </p>
 
